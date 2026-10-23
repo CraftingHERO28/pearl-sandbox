@@ -1,6 +1,6 @@
 # pearl-sandbox
 
-pearl-andbox is a game I programmed, designed to be highly satisfying.
+pearl-sandbox is a game I programmed, designed to be highly satisfying.
 As you can see, you can simply spawn beads,
 which then behave according to real-world physics: bouncing off walls and other pearls,
 or hopping around on the floor.
