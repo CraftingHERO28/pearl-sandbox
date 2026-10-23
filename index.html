@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pearl Sandbox - V5 Polished</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pearl Sandbox</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="w-screen h-screen select-none relative flex flex-col">
-    <div id="canvas-container" class="w-full h-full relative flex-1">
-        <canvas id="app-canvas" class="w-full h-full block"></canvas>
-    </div>
-    <div id="ui-overlay" class="absolute inset-0 pointer-events-none z-20"></div>
-    <script src="script.js"></script>
+<body>
+<div id="canvas-container"><canvas id="app-canvas"></canvas></div>
+<div id="ui-overlay"></div>
+<script src="script.js"></script>
 </body>
 </html>
