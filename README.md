@@ -41,6 +41,8 @@ The main challenge was keeping pearls from clipping through walls when spawning 
 
 ## Screenshots 
 
+<img width="846" height="771" alt="Screenshot 2026-10-14 200235" src="https://github.com/user-attachments/assets/bd558edc-1055-4565-962d-8d5e61a72058" />
+<img width="1903" height="935" alt="Screenshot 2026-10-22 140218" src="https://github.com/user-attachments/assets/641f8d53-a22c-4775-8dfb-e7ce6896ee5c" />
 
 
 ---
