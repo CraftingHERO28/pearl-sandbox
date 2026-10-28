@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pearl Sandbox</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pearl Sandbox</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="canvas-container"><canvas id="app-canvas"></canvas></div>
-<div id="ui-overlay"></div>
-<script src="script.js"></script>
+    <div id="canvas-container">
+        <canvas id="app-canvas"></canvas>
+    </div>
+
+    <div id="ui-overlay">
+        <div id="control-box">
+            <div class="header">
+                <h3>Pearl Sandbox</h3>
+                <span id="counter">0 / 500</span>
+            </div>
+            
+            <div class="control-group">
+                <label>Box Size: <span id="val-box">7</span></label>
+                <input type="range" id="slider-box" min="4" max="12" step="0.5" value="7">
+            </div>
+
+            <div class="control-group">
+                <label>Pearls / Click: <span id="val-click">20</span></label>
+                <input type="range" id="slider-click" min="1" max="50" value="20">
+            </div>
+
+            <div class="control-group">
+                <label>Max Pearls: <span id="val-max">500</span></label>
+                <input type="range" id="slider-max" min="50" max="1000" step="50" value="500">
+            </div>
+
+            <div class="control-group">
+                <label>Color</label>
+                <div id="colors">
+                    <button data-c="0xffb5a7" class="color-btn active" style="background:#ffb5a7;"></button>
+                    <button data-c="0x38bdf8" class="color-btn" style="background:#38bdf8;"></button>
+                    <button data-c="0x34d399" class="color-btn" style="background:#34d399;"></button>
+                    <button data-c="0xf43f5e" class="color-btn" style="background:#f43f5e;"></button>
+                    <button data-c="0xfbbf24" class="color-btn" style="background:#fbbf24;"></button>
+                </div>
+            </div>
+
+            <button id="btn-clear">Clear All</button>
+        </div>
+
+        <div id="gizmo-container">
+            <canvas id="gizmo-canvas"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
