@@ -1,8 +1,24 @@
-let animId, world, scene, camera, renderer, glassMesh, wireMesh, walls = [];
+let animId;
+let world;
+let scene;
+let camera;
+let renderer;
+let glassMesh;
+let wireMesh;
+let walls = [];
 let pearls = [];
-let boxSize = 7, maxPerls = 500, perClick = 20, selectedColor = 0xffb5a7;
-let rotX = 0, rotY = 0.3, camDist = 16;
-let isDragging = false, isGizmoDrag = false, prevX = 0, prevY = 0;
+let boxSize = 7;
+let maxPerls = 500;
+let perClick = 20;
+let selectedColor = 0xffb5a7;
+let rotX = 0;
+let rotY = 0.3;
+let camDist = 16;
+let isDragging = false;
+let isGizmoDrag = false;
+let prevX = 0;
+let prevY = 0;
+let gravityInverted = false;
 
 window.onload = function() {
     scene = new THREE.Scene();
@@ -54,8 +70,19 @@ window.onload = function() {
     ]);
     gGroup.add(gCube);
 
+    document.getElementById('btn-gravity').onclick = function() {
+        gravityInverted = !gravityInverted;
+        if(gravityInverted) {
+            world.gravity.set(0, 12, 0);
+            this.innerText = "Normal Gravity";
+        } else {
+            world.gravity.set(0, -12, 0);
+            this.innerText = "Invert Gravity";
+        }
+    };
+
     document.getElementById('btn-clear').onclick = function() {
-        for (let i = 0; i < pearls.length; i++) {
+        for(let i = 0; i < pearls.length; i++) {
             scene.remove(pearls[i].mesh);
             world.remove(pearls[i].body);
         }
@@ -80,10 +107,10 @@ window.onload = function() {
     };
 
     let colBtns = document.querySelectorAll('.color-btn');
-    for (let i = 0; i < colBtns.length; i++) {
+    for(let i = 0; i < colBtns.length; i++) {
         colBtns[i].onclick = function(e) {
             e.stopPropagation();
-            for (let j = 0; j < colBtns.length; j++) {
+            for(let j = 0; j < colBtns.length; j++) {
                 colBtns[j].classList.remove('active');
             }
             this.classList.add('active');
@@ -98,8 +125,8 @@ window.onload = function() {
     };
 
     window.onmousedown = function(e) {
-        if (e.target.closest('#control-box')) return;
-        if (e.target.closest('#gizmo-container')) {
+        if(e.target.closest('#control-box')) return;
+        if(e.target.closest('#gizmo-container')) {
             isGizmoDrag = true;
             prevX = e.clientX;
             prevY = e.clientY;
@@ -111,14 +138,14 @@ window.onload = function() {
     };
 
     window.onmousemove = function(e) {
-        if (isGizmoDrag) {
+        if(isGizmoDrag) {
             gCube.rotation.y += (e.clientX - prevX) * 0.02;
             gCube.rotation.x += (e.clientY - prevY) * 0.02;
             prevX = e.clientX;
             prevY = e.clientY;
             return;
         }
-        if (!isDragging) return;
+        if(!isDragging) return;
         rotX -= (e.clientX - prevX) * 0.008;
         rotY = Math.max(-1.4, Math.min(1.4, rotY + (e.clientY - prevY) * 0.008));
         updateCam();
@@ -128,37 +155,49 @@ window.onload = function() {
 
     window.onmouseup = function() {
         isDragging = false;
-        if (isGizmoDrag) {
+        if(isGizmoDrag) {
             isGizmoDrag = false;
             gCube.rotation.set(0, 0, 0);
         }
     };
 
     document.getElementById('gizmo-container').onclick = function(e) {
-        if (isGizmoDrag) return;
+        if(isGizmoDrag) return;
         let rect = this.getBoundingClientRect();
         let gx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         let gy = -((e.clientY - rect.top) / rect.height) * 2 + 1;
         let ray = new THREE.Raycaster();
         ray.setFromCamera(new THREE.Vector2(gx, gy), gCam);
         let hits = ray.intersectObject(gCube);
-        if (hits.length > 0) {
+        if(hits.length > 0) {
             let f = Math.floor(hits[0].faceIndex / 2);
-            if (f === 0) { rotX = Math.PI / 2; rotY = 0; }
-            else if (f === 1) { rotX = -Math.PI / 2; rotY = 0; }
-            else if (f === 2) { rotY = Math.PI / 2 - 0.01; rotX = 0; }
-            else if (f === 3) { rotY = -Math.PI / 2 + 0.01; rotX = 0; }
-            else if (f === 4) { rotX = 0; rotY = 0.3; }
-            else if (f === 5) { rotX = Math.PI; rotY = 0.3; }
-            
+            if(f === 0) {
+                rotX = Math.PI / 2;
+                rotY = 0;
+            } else if(f === 1) {
+                rotX = -Math.PI / 2;
+                rotY = 0;
+            } else if(f === 2) {
+                rotY = Math.PI / 2 - 0.01;
+                rotX = 0;
+            } else if(f === 3) {
+                rotY = -Math.PI / 2 + 0.01;
+                rotX = 0;
+            } else if(f === 4) {
+                rotX = 0;
+                rotY = 0.3;
+            } else if(f === 5) {
+                rotX = Math.PI;
+                rotY = 0.3;
+            }
             gCube.rotation.set(0, 0, 0);
             updateCam();
         }
     };
 
     window.onclick = function(e) {
-        if (e.target.closest('#control-box')) return;
-        if (e.target.closest('#gizmo-container')) return;
+        if(e.target.closest('#control-box')) return;
+        if(e.target.closest('#gizmo-container')) return;
 
         let mouse = new THREE.Vector2(
             (e.clientX / window.innerWidth) * 2 - 1,
@@ -167,12 +206,13 @@ window.onload = function() {
         let ray = new THREE.Raycaster();
         ray.setFromCamera(mouse, camera);
         let hits = ray.intersectObject(glassMesh);
-        if (hits.length > 0) {
+        if(hits.length > 0) {
             let hit = hits[0];
-            let pt = hit.point, norm = hit.face.normal;
+            let pt = hit.point;
+            let norm = hit.face.normal;
             let half = boxSize / 2;
-            for (let i = 0; i < perClick; i++) {
-                if (pearls.length >= maxPerls) {
+            for(let i = 0; i < perClick; i++) {
+                if(pearls.length >= maxPerls) {
                     let old = pearls.shift();
                     scene.remove(old.mesh);
                     world.remove(old.body);
@@ -203,9 +243,8 @@ window.onload = function() {
         }
     };
 
-    // Start-Perlen sicher im mittleren/unteren Bereich der Box spawnen
-    let half = boxSize / 2;
-    for (let i = 0; i < 20; i++) {
+    let halfBox = boxSize / 2;
+    for(let i = 0; i < 20; i++) {
         let m = new THREE.Mesh(
             new THREE.SphereGeometry(0.32, 32, 32),
             new THREE.MeshPhysicalMaterial({ color: selectedColor, metalness: 0.2, roughness: 0.15, clearcoat: 1.0 })
@@ -214,7 +253,7 @@ window.onload = function() {
         let b = new CANNON.Body({ mass: 0.8, shape: new CANNON.Sphere(0.32) });
         b.position.set(
             (Math.random() - 0.5) * 2,
-            -half + 1.5 + (i * 0.15), // Sauber gestapelt oder leicht verteilt im unteren Bereich
+            -halfBox + 1.5 + (i * 0.15),
             (Math.random() - 0.5) * 2
         );
         b.velocity.set(
@@ -229,11 +268,11 @@ window.onload = function() {
 
     function loop() {
         world.step(1 / 60);
-        for (let i = 0; i < pearls.length; i++) {
+        for(let i = 0; i < pearls.length; i++) {
             pearls[i].mesh.position.copy(pearls[i].body.position);
             pearls[i].mesh.quaternion.copy(pearls[i].body.quaternion);
         }
-        if (!isGizmoDrag) {
+        if(!isGizmoDrag) {
             gGroup.quaternion.copy(camera.quaternion).invert();
         }
         gRenderer.render(gScene, gCam);
@@ -245,26 +284,33 @@ window.onload = function() {
 
 function buildBox(size) {
     let half = size / 2;
-    for (let i = 0; i < walls.length; i++) {
+    for(let i = 0; i < walls.length; i++) {
         world.removeBody(walls[i]);
     }
     walls = [];
 
-    for (let i = 0; i < 6; i++) {
-        let shape = (i < 2) ? new CANNON.Box(new CANNON.Vec3(half, 0.5, half)) : (i < 4) ? new CANNON.Box(new CANNON.Vec3(0.5, half, half)) : new CANNON.Box(new CANNON.Vec3(half, half, 0.5));
+    for(let i = 0; i < 6; i++) {
+        let shape;
+        if(i < 2) {
+            shape = new CANNON.Box(new CANNON.Vec3(half, 0.5, half));
+        } else if(i < 4) {
+            shape = new CANNON.Box(new CANNON.Vec3(0.5, half, half));
+        } else {
+            shape = new CANNON.Box(new CANNON.Vec3(half, half, 0.5));
+        }
         let body = new CANNON.Body({ mass: 0, shape: shape });
-        if (i === 0) body.position.set(0, -half, 0);
-        if (i === 1) body.position.set(0, half, 0);
-        if (i === 2) body.position.set(-half, 0, 0);
-        if (i === 3) body.position.set(half, 0, 0);
-        if (i === 4) body.position.set(0, 0, -half);
-        if (i === 5) body.position.set(0, 0, half);
+        if(i === 0) body.position.set(0, -half, 0);
+        if(i === 1) body.position.set(0, half, 0);
+        if(i === 2) body.position.set(-half, 0, 0);
+        if(i === 3) body.position.set(half, 0, 0);
+        if(i === 4) body.position.set(0, 0, -half);
+        if(i === 5) body.position.set(0, 0, half);
         world.addBody(body);
         walls.push(body);
     }
 
-    if (glassMesh) scene.remove(glassMesh);
-    if (wireMesh) scene.remove(wireMesh);
+    if(glassMesh) scene.remove(glassMesh);
+    if(wireMesh) scene.remove(wireMesh);
 
     glassMesh = new THREE.Mesh(
         new THREE.BoxGeometry(size, size, size),
@@ -288,5 +334,5 @@ function updateCam() {
 
 function updateCounter() {
     let el = document.getElementById('counter');
-    if (el) el.innerText = pearls.length + ' / ' + maxPerls;
+    if(el) el.innerText = pearls.length + ' / ' + maxPerls;
 }

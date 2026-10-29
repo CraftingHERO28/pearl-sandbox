@@ -1,134 +1,148 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: #111;
-    color: #eee;
-    font-family: sans-serif;
-    user-select: none;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background: #111;
+	color: #eee;
+	font-family: sans-serif;
+	user-select: none;
 }
 
 #canvas-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
+	width: 100%;
+	height: 100%;
+	position: relative;
 }
 
 #app-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
+	width: 100%;
+	height: 100%;
+	display: block;
 }
 
 #ui-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 10;
 }
 
 #control-box {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: #222;
-    border: 2px solid #444;
-    padding: 12px;
-    width: 220px;
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	background: #222;
+	border: 2px solid #444;
+	padding: 12px;
+	width: 220px;
+	pointer-events: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #444;
-    padding-bottom: 6px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #444;
+	padding-bottom: 6px;
 }
 
 .header h3 {
-    font-size: 14px;
-    margin: 0;
+	font-size: 14px;
+	margin: 0;
 }
 
 #counter {
-    font-size: 11px;
-    color: #aaa;
+	font-size: 11px;
+	color: #aaa;
 }
 
 .control-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
 .control-group label {
-    font-size: 11px;
-    color: #ccc;
+	font-size: 11px;
+	color: #ccc;
 }
 
 input[type=range] {
-    width: 100%;
-    cursor: pointer;
+	width: 100%;
+	cursor: pointer;
 }
 
 #colors {
-    display: flex;
-    gap: 6px;
+	display: flex;
+	gap: 6px;
 }
 
 .color-btn {
-    width: 26px;
-    height: 26px;
-    border: 2px solid transparent;
-    cursor: pointer;
+	width: 26px;
+	height: 26px;
+	border: 2px solid transparent;
+	cursor: pointer;
 }
 
 .color-btn.active {
-    border-color: #fff;
+	border-color: #fff;
+}
+
+#btn-gravity {
+	margin-top: 5px;
+	padding: 6px;
+	background: #2563eb;
+	color: #fff;
+	border: none;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 12px;
+}
+
+#btn-gravity:hover {
+	background: #1d4ed8;
 }
 
 #btn-clear {
-    margin-top: 5px;
-    padding: 6px;
-    background: #8b0000;
-    color: #fff;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 12px;
+	padding: 6px;
+	background: #8b0000;
+	color: #fff;
+	border: none;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 12px;
 }
 
 #btn-clear:hover {
-    background: #a00000;
+	background: #a00000;
 }
 
 #gizmo-container {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 80px;
-    height: 80px;
-    background: #222;
-    border: 2px solid #444;
-    pointer-events: auto;
-    cursor: pointer;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 80px;
+	height: 80px;
+	background: #222;
+	border: 2px solid #444;
+	pointer-events: auto;
+	cursor: pointer;
 }
 
 #gizmo-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
+	width: 100%;
+	height: 100%;
+	display: block;
 }
