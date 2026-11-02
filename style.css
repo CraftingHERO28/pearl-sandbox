@@ -8,16 +8,18 @@ body {
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	background: #111;
-	color: #eee;
-	font-family: sans-serif;
+	background: #0d1117;
+	color: #c9d1d9;
+	font-family: monospace;
 	user-select: none;
 }
 
 #canvas-container {
 	width: 100%;
 	height: 100%;
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 #app-canvas {
@@ -40,32 +42,34 @@ body {
 	position: absolute;
 	top: 15px;
 	left: 15px;
-	background: #222;
-	border: 2px solid #444;
-	padding: 12px;
-	width: 220px;
+	background: #161b22;
+	border: 1px solid #30363d;
+	padding: 14px;
+	width: 230px;
 	pointer-events: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1px solid #444;
+	border-bottom: 1px solid #30363d;
 	padding-bottom: 6px;
 }
 
 .header h3 {
-	font-size: 14px;
+	font-size: 13px;
+	color: #58a6ff;
 	margin: 0;
 }
 
 #counter {
 	font-size: 11px;
-	color: #aaa;
+	color: #8b949e;
 }
 
 .control-group {
@@ -76,12 +80,13 @@ body {
 
 .control-group label {
 	font-size: 11px;
-	color: #ccc;
+	color: #8b949e;
 }
 
 input[type=range] {
 	width: 100%;
 	cursor: pointer;
+	accent-color: #58a6ff;
 }
 
 #colors {
@@ -90,43 +95,43 @@ input[type=range] {
 }
 
 .color-btn {
-	width: 26px;
-	height: 26px;
-	border: 2px solid transparent;
+	width: 24px;
+	height: 24px;
+	border: 1px solid #30363d;
 	cursor: pointer;
 }
 
 .color-btn.active {
-	border-color: #fff;
+	border-color: #f0f6fc;
+	transform: scale(1.1);
 }
 
-#btn-gravity {
-	margin-top: 5px;
-	padding: 6px;
-	background: #2563eb;
-	color: #fff;
-	border: none;
+#btn-gravity, #btn-vortex, #btn-clear {
+	padding: 7px;
+	background: #21262d;
+	color: #c9d1d9;
+	border: 1px solid #30363d;
 	font-weight: bold;
 	cursor: pointer;
-	font-size: 12px;
+	font-size: 11px;
+	font-family: monospace;
 }
 
-#btn-gravity:hover {
-	background: #1d4ed8;
+#btn-gravity:hover, #btn-vortex:hover {
+	background: #30363d;
+	color: #58a6ff;
 }
 
-#btn-clear {
-	padding: 6px;
-	background: #8b0000;
-	color: #fff;
-	border: none;
-	font-weight: bold;
-	cursor: pointer;
-	font-size: 12px;
+#btn-vortex.active {
+	background: #1f6feb;
+	color: #ffffff;
+	border-color: #388bfd;
 }
 
 #btn-clear:hover {
-	background: #a00000;
+	background: #da3633;
+	color: #ffffff;
+	border-color: #f85149;
 }
 
 #gizmo-container {
@@ -135,8 +140,8 @@ input[type=range] {
 	right: 15px;
 	width: 80px;
 	height: 80px;
-	background: #222;
-	border: 2px solid #444;
+	background: #161b22;
+	border: 1px solid #30363d;
 	pointer-events: auto;
 	cursor: pointer;
 }
